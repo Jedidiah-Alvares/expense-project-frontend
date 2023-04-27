@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { ProfileButton } from "./ProfileButton";
 
 export const NavBar = () => {
   useEffect(() => {
@@ -32,11 +33,7 @@ export const NavBar = () => {
                 Home
               </NavLink>
             </div>
-            <div className="navbar-nav float-end" id="signin">
-              <NavLink className="nav-link" to="/signin">
-                Sign In
-              </NavLink>
-            </div>
+            <ProfileButton />
           </div>
         </div>
       </nav>

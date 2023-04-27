@@ -21,3 +21,16 @@ a.active {
 input {
   min-width: 50vh;
 }
+
+form {
+  margin: 5px;
+}
+
+.account {
+  margin: 5px;
+}
+
+.form-container {
+  background-color: aliceblue;
+  margin: 5px;
+}
