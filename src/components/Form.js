@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// the form which will be used my sign in and sign up feature
 export const Form = (props) => {
   return (
     <div>

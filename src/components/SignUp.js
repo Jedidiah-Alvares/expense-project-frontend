@@ -5,18 +5,25 @@ import { auth } from "../feature/userAuth/userAuthSlice";
 import axios from "axios";
 import { Form } from "./Form";
 
+// contains the signup feature
 export const SignUp = () => {
+  // name and password are refs to handle their respective input tag in the form
   const name = useRef("");
   const password = useRef("");
+
+  // Since sign in and sign up use the same form, few payloads has to be sent to the form
   const text = {
     heading: "Sign Up",
     error: "",
     path: "/signin",
     message: "Already have an Account? Sign In",
   };
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  // To handle some classes in the form
+  // may remove from js and handle it in css/bootstrap
   useEffect(() => {
     document.getElementById("main").classList.remove("text-center");
     name.current.focus();
@@ -25,6 +32,7 @@ export const SignUp = () => {
     };
   }, []);
 
+  // adds data to the rdeux store and also sends it to the server
   const addData = () => {
     let payload = {
       name: name.current.value,
@@ -38,9 +46,11 @@ export const SignUp = () => {
     dispatch(auth(payload.name));
   };
 
+  // handle submit of the form
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // checks if the user already exists
     axios
       .get(`http://localhost:4000/user/${name.current.value}`)
       .then((res) => {

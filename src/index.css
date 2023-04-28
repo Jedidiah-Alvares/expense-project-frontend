@@ -11,7 +11,7 @@ a.active {
 }
 
 .vertical-center {
-  min-height: 80vh;
+  min-height: 90vh;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -33,4 +33,22 @@ form {
 .form-container {
   background-color: aliceblue;
   margin: 5px;
+}
+
+.profile {
+  height: 100%;
+  width: 100%;
+  padding: 5px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background-color: aliceblue;
+}
+
+.card {
+  margin: 1rem;
+}
+
+.page {
+  display: flex;
+  justify-content: space-between;
 }
