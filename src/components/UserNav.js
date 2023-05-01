@@ -8,9 +8,14 @@ export const UserNav = () => {
 
   return (
     user && (
-      <NavLink className="nav-link" to="/expense">
-        Expense
-      </NavLink>
+      <>
+        <NavLink className="nav-link" to="/expense">
+          Expense
+        </NavLink>
+        <NavLink className="nav-link" to="/expense-weekly-monthly">
+          Weekly/Monthly Expenses
+        </NavLink>
+      </>
     )
   );
 };

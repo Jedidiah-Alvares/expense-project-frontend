@@ -4,7 +4,8 @@ import { Home } from "./components/Home";
 import { NavBar } from "./components/NavBar";
 import { SignUp } from "./components/SignUp";
 import { SignIn } from "./components/SignIn";
-import { Expense } from "./components/Expense";
+import Expense from "./components/Expense";
+import ExpensesWeeklyMonthly from "./components/ExpensesWeeklyMonthly";
 
 function App() {
   return (
@@ -16,6 +17,10 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/expense" element={<Expense />} />
+          <Route
+            path="/expense-weekly-monthly"
+            element={<ExpensesWeeklyMonthly />}
+          />
         </Routes>
       </div>
     </>
