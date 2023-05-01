@@ -6,6 +6,21 @@ class ExpensesWeeklyMonthly extends Component {
   constructor(props) {
     super(props);
 
+    this.months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+
     this.state = {
       data: [],
     };
@@ -27,7 +42,7 @@ class ExpensesWeeklyMonthly extends Component {
       let dateEnd = new Date(dateString);
 
       return `${dateStart.toDateString()} - ${dateEnd.toDateString()}`;
-    } else return `${data.month}/${data.year}`;
+    } else return `${this.months[data.month - 1]} ${data.year}`;
   }
 
   getExpense() {
