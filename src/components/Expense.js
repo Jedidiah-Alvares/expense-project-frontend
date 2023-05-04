@@ -3,6 +3,10 @@ import withPageButton from "./withPageButton";
 import axios from "axios";
 import { Cards } from "./Cards";
 import { AddExpense } from "./AddExpense";
+import { connect } from "react-redux";
+import { changeLoading } from "../feature/loading/loadingSlice";
+import { compose } from "@reduxjs/toolkit";
+import Loading from "./Loading";
 
 class Expense extends Component {
   constructor(props) {
@@ -12,14 +16,22 @@ class Expense extends Component {
       data: [],
       load: true,
     };
+    console.log(props);
+
+    this.props.changeLoading();
   }
   // display 5 expenses in card format
   // so previous and next buttons have been added
   //onst [pageNo, changePage] = useState(0);
 
   // gets data after mounting
+
   componentDidMount() {
     this.getData();
+
+    this.props.changeLoading();
+
+    //Dispatch(changeLoading());
   }
 
   // handles the retireval of data
@@ -79,17 +91,20 @@ class Expense extends Component {
           ) : this.state.data.length ? (
             <>
               {this.state.data.map((data) => (
-                <Cards
-                  key={data.id}
-                  category={data.category}
-                  date={data.date}
-                  expense={data.expense}
-                />
+                <>
+                  <Cards
+                    key={data.id}
+                    category={data.category}
+                    date={data.date}
+                    expense={data.expense}
+                  />
+                </>
               ))}
             </>
           ) : (
             <div>No Expenses Found</div>
           )}
+
           {this.props.children}
 
           <AddExpense getData={this.getData} />

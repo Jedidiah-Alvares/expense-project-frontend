@@ -10,6 +10,7 @@ import Category from "./components/Category";
 import ProtectRoutes from "./components/ProtectRoutes";
 import React from "react";
 import { PageNotFound } from "./components/PageNotFound";
+import Loading from "./components/Loading";
 
 function App() {
   console.log(typeof ProtectRoutes);

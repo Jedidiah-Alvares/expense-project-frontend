@@ -7,10 +7,27 @@ const withPageButton = (WrappedComponent) => {
 
       this.state = {
         pageNo: 0,
+        isLoading: false,
       };
 
       this.child = createRef();
     }
+
+    hideButtons = () => {
+      if (this.state.isLoading) {
+        document.getElementById("prev").style.visibility = "hidden";
+        document.getElementById("prev").style.visibility = "hidden";
+      }
+    };
+
+    changeLoading = () => {
+      this.setState(
+        {
+          isLoading: !this.state.isLoading,
+        },
+        () => this.hideButtons()
+      );
+    };
 
     // changes the button visiblity of previous and next button
     setButtonVisiblity = (prev, next) => {
@@ -51,6 +68,7 @@ const withPageButton = (WrappedComponent) => {
           setButtonVisiblity={this.setButtonVisiblity}
           pageNo={this.state.pageNo}
           reset={this.resetPageNo}
+          changeLoading={this.changeLoading}
         >
           <div className="page">
             <button
