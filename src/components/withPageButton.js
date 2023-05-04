@@ -10,6 +10,7 @@ const withPageButton = (WrappedComponent) => {
         isLoading: false,
       };
 
+      console.log(WrappedComponent);
       this.child = createRef();
     }
 
@@ -50,6 +51,7 @@ const withPageButton = (WrappedComponent) => {
     };
 
     handleButton = (e) => {
+      console.log(this.child);
       this.setState(
         {
           pageNo:
@@ -69,6 +71,7 @@ const withPageButton = (WrappedComponent) => {
           pageNo={this.state.pageNo}
           reset={this.resetPageNo}
           changeLoading={this.changeLoading}
+          {...this.props}
         >
           <div className="page">
             <button

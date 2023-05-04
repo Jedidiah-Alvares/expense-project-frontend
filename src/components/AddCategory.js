@@ -42,9 +42,11 @@ export const AddCategory = (props) => {
       // Sends the payload to the server
       // Retrieves the new expense in background by calling getData of Expense component
 
-      axios.put("http://localhost:4000/category/edit/jed", payload).then(() => {
-        props.getmonthdata();
-      });
+      axios
+        .put(`http://localhost:4000/category/edit/${name}`, payload)
+        .then(() => {
+          props.getmonthdata();
+        });
     }
   };
 

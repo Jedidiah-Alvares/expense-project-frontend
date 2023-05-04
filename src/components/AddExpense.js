@@ -52,7 +52,7 @@ export const AddExpense = (props) => {
     let i = 0;
     let expended = payload[0]?.totalAmount ?? 0;
 
-    axios.get("http://localhost:4000/category/get/jed").then((res) => {
+    axios.get(`http://localhost:4000/category/get/${name}`).then((res) => {
       let data = res.data;
       let amount = 0;
       for (; i < data.length; i++) {
@@ -75,7 +75,7 @@ export const AddExpense = (props) => {
     let year = date.getFullYear();
     axios
       .get(
-        `http://localhost:4000/expense/getMonthly/jed/${payload.category}/${month}/${year}`
+        `http://localhost:4000/expense/getMonthly/${name}/${payload.category}/${month}/${year}`
       )
       .then((resMonth) => {
         checkBudget(resMonth.data, payload.category);

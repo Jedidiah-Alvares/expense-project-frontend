@@ -5,8 +5,6 @@ import { Cards } from "./Cards";
 import { AddExpense } from "./AddExpense";
 import { connect } from "react-redux";
 import { changeLoading } from "../feature/loading/loadingSlice";
-import { compose } from "@reduxjs/toolkit";
-import Loading from "./Loading";
 
 class Expense extends Component {
   constructor(props) {
@@ -16,9 +14,8 @@ class Expense extends Component {
       data: [],
       load: true,
     };
-    console.log(props);
 
-    this.props.changeLoading();
+    console.log("props", props);
   }
   // display 5 expenses in card format
   // so previous and next buttons have been added
@@ -29,8 +26,6 @@ class Expense extends Component {
   componentDidMount() {
     this.getData();
 
-    this.props.changeLoading();
-
     //Dispatch(changeLoading());
   }
 
@@ -39,6 +34,8 @@ class Expense extends Component {
 
   getData = () => {
     let num = this.props.pageNo;
+
+    this.props.changeLoading();
     this.setState({
       load: true,
       data: [],
@@ -67,6 +64,8 @@ class Expense extends Component {
           ],
         }));
       }
+
+      this.props.changeLoading();
       this.setState({
         load: false,
       });
@@ -91,20 +90,17 @@ class Expense extends Component {
           ) : this.state.data.length ? (
             <>
               {this.state.data.map((data) => (
-                <>
-                  <Cards
-                    key={data.id}
-                    category={data.category}
-                    date={data.date}
-                    expense={data.expense}
-                  />
-                </>
+                <Cards
+                  key={data.id}
+                  category={data.category}
+                  date={data.date}
+                  expense={data.expense}
+                />
               ))}
             </>
           ) : (
             <div>No Expenses Found</div>
           )}
-
           {this.props.children}
 
           <AddExpense getData={this.getData} />
@@ -114,4 +110,10 @@ class Expense extends Component {
   }
 }
 
-export default withPageButton(Expense);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    changeLoading: () => dispatch(changeLoading()),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(withPageButton(Expense));

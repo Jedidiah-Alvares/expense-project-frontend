@@ -1,10 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 
-const Loading = (Component) => {
+const Loading = (props) => {
   return (
     <>
-      {/*
       {props.isLoading ? (
         <div
           class="spinner-grow text-secondary"
@@ -13,8 +12,7 @@ const Loading = (Component) => {
         ></div>
       ) : (
         props.children
-      )}*/}
-      <Component test="hello"></Component>
+      )}
     </>
   );
 };
@@ -23,4 +21,4 @@ const mapStateToProps = (state) => ({
   isLoading: state.loading.isLoading,
 });
 
-export default Loading;
+export default connect(mapStateToProps)(Loading);
