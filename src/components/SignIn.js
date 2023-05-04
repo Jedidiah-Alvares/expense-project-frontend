@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { auth } from "../feature/userAuth/userAuthSlice";
 import axios from "axios";
@@ -25,6 +25,8 @@ export const SignIn = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const redirectPath = location.state?.path ?? "/expense";
 
   // To handle some classes in the form
   // may remove from js and handle it in css/bootstrap
@@ -64,9 +66,10 @@ export const SignIn = () => {
 
     // send data to the server
     axios.post("http://localhost:4000/user/verify", payload).then((res) => {
+      console.log(res.data);
       if (res.data) {
         addData();
-        navigate("/expense");
+        navigate(redirectPath);
       } else {
         document.getElementById("alert").style.display = "block";
       }

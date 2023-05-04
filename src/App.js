@@ -7,8 +7,12 @@ import { SignIn } from "./components/SignIn";
 import Expense from "./components/Expense";
 import ExpensesWeeklyMonthly from "./components/ExpensesWeeklyMonthly";
 import Category from "./components/Category";
+import ProtectRoutes from "./components/ProtectRoutes";
+import React from "react";
+import { PageNotFound } from "./components/PageNotFound";
 
 function App() {
+  console.log(typeof ProtectRoutes);
   return (
     <>
       <NavBar />
@@ -17,12 +21,19 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
-          <Route path="/expense" element={<Expense />} />
+          <Route
+            path="/expense"
+            element={<ProtectRoutes Component={Expense} />}
+          />
           <Route
             path="/expense-weekly-monthly"
-            element={<ExpensesWeeklyMonthly />}
+            element={<ProtectRoutes Component={ExpensesWeeklyMonthly} />}
           />
-          <Route path="/category" element={<Category />} />
+          <Route
+            path="/category"
+            element={<ProtectRoutes Component={Category} />}
+          />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>
     </>
