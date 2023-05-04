@@ -1,7 +1,8 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ExpenseForm } from "./ExpenseForm";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import bootstrap from "bootstrap/dist/js/bootstrap.bundle.min";
 
 // contains the modal and form to add expense
 export const AddExpense = (props) => {
@@ -10,12 +11,26 @@ export const AddExpense = (props) => {
   const date = useRef();
   const amount = useRef();
 
-  // gets name from the store to send it to the server
+  // gets name and categories from the store
   const name = useSelector((state) => state.user.name);
+  const categories = useSelector((state) => state.category.categories);
+
+  let toast;
+  const toastCategory = useState("");
+
+  useEffect(() => {
+    initializeToast();
+  });
+
+  const initializeToast = () => {
+    toast = new bootstrap.Toast(document.getElementById("toast"));
+  };
 
   // handles the form
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    document.getElementById("alert").style.display = "block";
 
     let payload = {
       name: name,
@@ -28,7 +43,43 @@ export const AddExpense = (props) => {
     // Retrieves the new expense in background by calling getData of Expense component
     axios.post("http://localhost:4000/expense/add", payload).then(() => {
       props.getData();
+
+      getMonthExpense(payload);
     });
+  };
+
+  const checkBudget = (payload, category) => {
+    let i = 0;
+    let expended = payload[0]?.totalAmount ?? 0;
+
+    axios.get("http://localhost:4000/category/get/jed").then((res) => {
+      let data = res.data;
+      let amount = 0;
+      for (; i < data.length; i++) {
+        if (data[i]._id === category) {
+          amount = data[i].budget;
+          break;
+        }
+      }
+
+      if (amount !== -1 && amount < expended) {
+        alert(`Expenses for ${data[i]._id} has gone over the Monthly Budget`);
+        toast.show();
+      }
+    });
+  };
+
+  const getMonthExpense = (payload) => {
+    let date = new Date(payload.date);
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    axios
+      .get(
+        `http://localhost:4000/expense/getMonthly/jed/${payload.category}/${month}/${year}`
+      )
+      .then((resMonth) => {
+        checkBudget(resMonth.data, payload.category);
+      });
   };
 
   return (
@@ -48,9 +99,24 @@ export const AddExpense = (props) => {
           <div class="modal-body">
             <ExpenseForm
               refs={{ category, date, amount }}
+              categories={categories}
               handleSubmit={handleSubmit}
             />
           </div>
+        </div>
+      </div>
+      <div class="toast" role="alert" id="toast">
+        <div class="toast-header">
+          <strong class="me-auto">Alert</strong>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="toast-body">
+          Expenses for {} has gone over the Monthly Budget
         </div>
       </div>
     </div>

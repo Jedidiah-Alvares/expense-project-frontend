@@ -52,3 +52,7 @@ form {
   display: flex;
   justify-content: space-between;
 }
+
+.edit {
+  font-weight: bold;
+}

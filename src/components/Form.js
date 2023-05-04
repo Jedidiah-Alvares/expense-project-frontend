@@ -42,9 +42,10 @@ export const Form = (props) => {
             {props.text.error}
           </span>
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary mb-2">
           Submit
         </button>
+        <div class="alert alert-danger" role="alert" id="alert"></div>
         <div className="account">
           <Link to={props.text.path}>{props.text.message}</Link>
         </div>

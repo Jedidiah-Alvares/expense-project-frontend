@@ -15,6 +15,9 @@ export const UserNav = () => {
         <NavLink className="nav-link" to="/expense-weekly-monthly">
           Weekly/Monthly Expenses
         </NavLink>
+        <NavLink className="nav-link" to="/category">
+          Category
+        </NavLink>
       </>
     )
   );

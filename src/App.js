@@ -6,6 +6,7 @@ import { SignUp } from "./components/SignUp";
 import { SignIn } from "./components/SignIn";
 import Expense from "./components/Expense";
 import ExpensesWeeklyMonthly from "./components/ExpensesWeeklyMonthly";
+import Category from "./components/Category";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             path="/expense-weekly-monthly"
             element={<ExpensesWeeklyMonthly />}
           />
+          <Route path="/category" element={<Category />} />
         </Routes>
       </div>
     </>

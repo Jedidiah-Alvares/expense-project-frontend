@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { auth } from "../feature/userAuth/userAuthSlice";
 import axios from "axios";
 import { Form } from "./Form";
+import { addCategory } from "../feature/category/categorySlice";
 
 // contains the signin feature
 export const SignIn = () => {
@@ -31,6 +32,10 @@ export const SignIn = () => {
     document.getElementById("main").classList.remove("text-center");
     document.getElementsByTagName("input")[1].removeAttribute("pattern");
     document.getElementsByTagName("input")[1].removeAttribute("title");
+
+    document.getElementById("alert").innerHTML =
+      "The Username or Password is incorrect";
+    document.getElementById("alert").style.display = "none";
     name.current.focus();
     return () => {
       document.getElementById("main").classList.add("text-center");
@@ -40,12 +45,18 @@ export const SignIn = () => {
   // adds data to the rdeux store
   const addData = () => {
     dispatch(auth(payload.name));
+
+    axios.get("http://localhost:4000/category/getAll/jed").then((res) => {
+      res.data[0].category.forEach((cat) => {
+        dispatch(addCategory(cat));
+      });
+    });
   };
 
   // handle submit of the form
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    document.getElementById("alert").style.display = "none";
     payload = {
       name: name.current.value,
       password: password.current.value,
@@ -54,12 +65,10 @@ export const SignIn = () => {
     // send data to the server
     axios.post("http://localhost:4000/user/verify", payload).then((res) => {
       if (res.data) {
-        document.getElementById("changeName").innerHTML = "";
         addData();
         navigate("/expense");
       } else {
-        document.getElementById("changeName").innerHTML =
-          "*The Username or Password is incorrect*";
+        document.getElementById("alert").style.display = "block";
       }
     });
   };

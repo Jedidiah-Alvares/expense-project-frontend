@@ -1,7 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { auth } from "../feature/userAuth/userAuthSlice";
 import axios from "axios";
 import { Form } from "./Form";
 
@@ -20,12 +18,15 @@ export const SignUp = () => {
   };
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   // To handle some classes in the form
   // may remove from js and handle it in css/bootstrap
   useEffect(() => {
     document.getElementById("main").classList.remove("text-center");
+
+    document.getElementById("alert").innerHTML = "The Username already exist";
+    document.getElementById("alert").style.display = "none";
+
     name.current.focus();
     return () => {
       document.getElementById("main").classList.add("text-center");
@@ -40,15 +41,32 @@ export const SignUp = () => {
     };
 
     axios.post("http://localhost:4000/user", payload).then(() => {
+      let category = ["Food", "Fuel", "Rent"];
+      let allCategory = [];
+
+      for (let i = 0; i < 3; i++) {
+        allCategory.push({
+          name: category[i],
+          budget: [],
+        });
+      }
+
+      payload = {
+        name: name.current.value,
+        category: allCategory,
+      };
+
+      axios.post("http://localhost:4000/category/add", payload);
+
       navigate("/");
     });
-
-    dispatch(auth(payload.name));
   };
 
   // handle submit of the form
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    document.getElementById("alert").style.display = "none";
 
     // checks if the user already exists
     axios
@@ -56,11 +74,9 @@ export const SignUp = () => {
       .then((res) => {
         console.log(!res.data);
         if (!res.data) {
-          document.getElementById("changeName").innerHTML = "";
           addData();
         } else {
-          document.getElementById("changeName").innerHTML =
-            "*The Username already exist*";
+          document.getElementById("alert").style.display = "block";
         }
       });
   };

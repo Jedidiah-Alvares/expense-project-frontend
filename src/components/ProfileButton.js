@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import { signOut } from "../feature/userAuth/userAuthSlice";
+import { resetCategory } from "../feature/category/categorySlice";
 
 // contains the profile button or the sign in button on the right of navbar
 // also has profile and signout option
@@ -35,6 +36,7 @@ export const ProfileButton = () => {
                   className="nav-link"
                   onClick={() => {
                     dispatch(signOut());
+                    dispatch(resetCategory());
                   }}
                   to={"/"}
                 >
