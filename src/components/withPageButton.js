@@ -51,6 +51,7 @@ const withPageButton = (WrappedComponent) => {
           setButtonVisiblity={this.setButtonVisiblity}
           pageNo={this.state.pageNo}
           reset={this.resetPageNo}
+          {...this.props}
         >
           <div className="page">
             <button

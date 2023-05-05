@@ -13,6 +13,8 @@ class Expense extends Component {
       data: [],
       load: true,
     };
+
+    console.log(props);
   }
   // display 5 expenses in card format
   // so previous and next buttons have been added
@@ -37,7 +39,7 @@ class Expense extends Component {
 
     // retrives data from server
     axios
-      .get(`http://localhost:4000/expense/${this.state.name}/${skip}`)
+      .get(`http://localhost:4000/expense/${this.props.name}/${skip}`)
       .then((res) => {
         this.props.setButtonVisiblity(num, res.data.length - 5);
         let data = res.data;

@@ -25,7 +25,6 @@ export const SignIn = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const username = useSelector((state) => state.user.name);
   const location = useLocation();
   const redirectPath = location.state?.path ?? "/expense";
 
@@ -48,9 +47,8 @@ export const SignIn = () => {
   // adds data to the rdeux store
   const addData = () => {
     dispatch(auth(payload.name));
-
     axios
-      .get(`http://localhost:4000/category/getAll/${username}`)
+      .get(`http://localhost:4000/category/getAll/${payload.name}`)
       .then((res) => {
         res.data[0].category.forEach((cat) => {
           dispatch(addCategory(cat));
