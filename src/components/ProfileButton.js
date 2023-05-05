@@ -10,51 +10,24 @@ export const ProfileButton = () => {
   const user = useSelector((state) => state.user.name);
   const dispatch = useDispatch();
 
-  if (user) {
-    return (
-      <div className="navbar-nav float-end">
-        <div className="dropdown ">
-          <div
-            className="dropdown-toggle profile"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            {user}
-          </div>
-          <ul className="dropdown-menu">
-            <li>
-              <button className="dropdown-item" type="button">
-                Profile
-              </button>
-            </li>
-            <li>
-              <hr className="dropdown-divider" />
-            </li>
-            <li>
-              <button className="dropdown-item" type="button">
-                <Link
-                  className="nav-link"
-                  onClick={() => {
-                    dispatch(signOut());
-                    dispatch(resetCategory());
-                  }}
-                  to={"/"}
-                >
-                  Sign out
-                </Link>
-              </button>
-            </li>
-          </ul>
-        </div>
-      </div>
-    );
-  } else {
-    return (
-      <div className="navbar-nav float-end" id="signin">
+  return (
+    <div className="navbar-nav float-end" id="signin">
+      {user ? (
+        <Link
+          className="nav-link"
+          onClick={() => {
+            dispatch(signOut());
+            dispatch(resetCategory());
+          }}
+          to={"/"}
+        >
+          Sign out
+        </Link>
+      ) : (
         <NavLink className="nav-link" to="/signin">
           Sign In
         </NavLink>
-      </div>
-    );
-  }
+      )}
+    </div>
+  );
 };
