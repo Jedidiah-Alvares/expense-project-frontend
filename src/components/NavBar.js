@@ -38,6 +38,7 @@ export const NavBar = () => {
               </NavLink>
               <UserNav />
             </div>
+
             <ProfileButton />
           </div>
         </div>

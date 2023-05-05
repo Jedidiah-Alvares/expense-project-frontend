@@ -3,6 +3,7 @@ import withPageButton from "./withPageButton";
 import axios from "axios";
 import { Cards } from "./Cards";
 import { AddExpense } from "./AddExpense";
+import { connect } from "react-redux";
 
 class Expense extends Component {
   constructor(props) {
@@ -35,30 +36,31 @@ class Expense extends Component {
     let skip = num * 5; // 5 cards per page
 
     // retrives data from server
-    // will change the hard coded user "jed" after finishing protected routes
-    axios.get(`http://localhost:4000/expense/jed/${skip}`).then((res) => {
-      this.props.setButtonVisiblity(num, res.data.length - 5);
-      let data = res.data;
-      for (let i = 0; i < Math.min(5, data.length); i++) {
-        let dateString = data[i].date.slice(0, 10);
-        let date = new Date(dateString);
-        this.setState((prevState) => ({
-          data: [
-            ...prevState.data,
+    axios
+      .get(`http://localhost:4000/expense/${this.state.name}/${skip}`)
+      .then((res) => {
+        this.props.setButtonVisiblity(num, res.data.length - 5);
+        let data = res.data;
+        for (let i = 0; i < Math.min(5, data.length); i++) {
+          let dateString = data[i].date.slice(0, 10);
+          let date = new Date(dateString);
+          this.setState((prevState) => ({
+            data: [
+              ...prevState.data,
 
-            {
-              id: data[i]._id,
-              category: data[i].category,
-              date: date.toDateString(),
-              expense: data[i].expense,
-            },
-          ],
-        }));
-      }
-      this.setState({
-        load: false,
+              {
+                id: data[i]._id,
+                category: data[i].category,
+                date: date.toDateString(),
+                expense: data[i].expense,
+              },
+            ],
+          }));
+        }
+        this.setState({
+          load: false,
+        });
       });
-    });
   };
 
   render() {
@@ -99,4 +101,8 @@ class Expense extends Component {
   }
 }
 
-export default withPageButton(Expense);
+const mapStateToProps = (state) => ({
+  name: state.user.name,
+});
+
+export default connect(mapStateToProps)(withPageButton(Expense));

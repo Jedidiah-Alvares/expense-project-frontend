@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useRef } from "react";
+import { useSelector } from "react-redux";
 
 export const EditCategory = (props) => {
   const amount = useRef(-1);
+  const name = useSelector((state) => state.user.name);
 
   const handleEdit = (e) => {
     e.preventDefault();
@@ -13,7 +15,7 @@ export const EditCategory = (props) => {
     };
 
     axios
-      .put("http://localhost:4000/category/edit/budget/jed", payload)
+      .put(`http://localhost:4000/category/edit/budget/${name}`, payload)
       .then(() => {
         props.getmonthdata();
       });

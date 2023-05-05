@@ -75,7 +75,7 @@ export const AddExpense = (props) => {
     let year = date.getFullYear();
     axios
       .get(
-        `http://localhost:4000/expense/getMonthly/jed/${payload.category}/${month}/${year}`
+        `http://localhost:4000/expense/getMonthly/${name}/${payload.category}/${month}/${year}`
       )
       .then((resMonth) => {
         checkBudget(resMonth.data, payload.category);

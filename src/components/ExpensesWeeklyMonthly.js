@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { Component, createRef } from "react";
 import withPageButton from "./withPageButton";
+import { connect } from "react-redux";
 
 class ExpensesWeeklyMonthly extends Component {
   constructor(props) {
@@ -50,7 +51,7 @@ class ExpensesWeeklyMonthly extends Component {
     let skip = num * 10; // 10 records per page
     axios
       .get(
-        `http://localhost:4000/expense/get${this.filterRef.current.value}/jed/${this.categoryRef.current.value}/${skip}`
+        `http://localhost:4000/expense/get${this.filterRef.current.value}/${this.props.name}/${this.categoryRef.current.value}/${skip}`
       )
       .then((res) => {
         this.setState({
@@ -131,4 +132,8 @@ class ExpensesWeeklyMonthly extends Component {
   }
 }
 
-export default withPageButton(ExpensesWeeklyMonthly);
+const mapStateToProps = (state) => ({
+  name: state.user.name,
+});
+
+export default connect(mapStateToProps)(withPageButton(ExpensesWeeklyMonthly));

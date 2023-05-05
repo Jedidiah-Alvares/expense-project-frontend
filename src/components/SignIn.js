@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../feature/userAuth/userAuthSlice";
 import axios from "axios";
 import { Form } from "./Form";
@@ -25,6 +25,7 @@ export const SignIn = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const username = useSelector((state) => state.user.name);
   const location = useLocation();
   const redirectPath = location.state?.path ?? "/expense";
 
@@ -48,11 +49,13 @@ export const SignIn = () => {
   const addData = () => {
     dispatch(auth(payload.name));
 
-    axios.get("http://localhost:4000/category/getAll/jed").then((res) => {
-      res.data[0].category.forEach((cat) => {
-        dispatch(addCategory(cat));
+    axios
+      .get(`http://localhost:4000/category/getAll/${username}`)
+      .then((res) => {
+        res.data[0].category.forEach((cat) => {
+          dispatch(addCategory(cat));
+        });
       });
-    });
   };
 
   // handle submit of the form

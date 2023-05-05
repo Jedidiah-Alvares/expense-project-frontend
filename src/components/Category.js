@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { AddCategory } from "./AddCategory";
 import axios from "axios";
 import { EditCategory } from "./EditCategory";
+import { connect } from "react-redux";
 
 export class Category extends Component {
   constructor(props) {
@@ -17,11 +18,13 @@ export class Category extends Component {
   }
 
   getmonthdata = () => {
-    axios.get("http://localhost:4000/category/get/jed").then((res) => {
-      this.setState({
-        data: res.data,
+    axios
+      .get(`http://localhost:4000/category/get/${this.props.name}`)
+      .then((res) => {
+        this.setState({
+          data: res.data,
+        });
       });
-    });
   };
 
   render() {
@@ -80,4 +83,8 @@ export class Category extends Component {
   }
 }
 
-export default Category;
+const mapStateToProps = (state) => ({
+  name: state.user.name,
+});
+
+export default connect(mapStateToProps)(Category);
