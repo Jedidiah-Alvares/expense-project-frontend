@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { auth } from "../feature/userAuth/userAuthSlice";
 import axios from "axios";
 import { Form } from "./Form";
