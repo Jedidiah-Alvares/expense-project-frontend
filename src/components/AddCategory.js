@@ -65,20 +65,25 @@ export const AddCategory = (props) => {
   };
 
   return (
-    <div class="modal fade" id="addcategory" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5">Add Category</h1>
+    <div
+      className="modal fade"
+      id="addcategory"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h1 className="modal-title fs-5">Add Category</h1>
             <button
               id="closeModal"
               type="button"
-              class="btn-close"
+              className="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">
+          <div className="modal-body">
             <form
               className="text-start mx-auto"
               onSubmit={handleSubmit}
@@ -93,16 +98,16 @@ export const AddCategory = (props) => {
                   ref={category}
                 />
               </div>
-              <div class="form-check mb-2">
+              <div className="form-check mb-2">
                 <input
-                  class="form-check-input"
+                  className="form-check-input"
                   type="checkbox"
                   value=""
                   id="setBudget"
                   style={{ minWidth: "1em" }}
                   onChange={handleCheckbox}
                 />
-                <label class="form-check-label text-secondary">
+                <label className="form-check-label text-secondary">
                   Enter Budget for the Month
                 </label>
               </div>

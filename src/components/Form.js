@@ -45,7 +45,7 @@ export const Form = (props) => {
         <button type="submit" className="btn btn-primary mb-2">
           Submit
         </button>
-        <div class="alert alert-danger" role="alert" id="alert"></div>
+        <div className="alert alert-danger" role="alert" id="alert"></div>
         <div className="account">
           <Link to={props.text.path}>{props.text.message}</Link>
         </div>

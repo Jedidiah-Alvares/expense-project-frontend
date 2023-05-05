@@ -56,18 +56,20 @@ export class Alert extends Component {
 
   render() {
     return (
-      <div class="toast" role="alert" id="toast">
-        <div class="toast-header">
-          <strong class="me-auto">Alert</strong>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="toast"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="toast-body">
-          Expenses for {this.state.category} has gone over the Monthly Budget
+      <div className="toast-container position-fixed  top-0 start-0 p-3">
+        <div className="toast" role="alert" id="toast">
+          <div className="toast-header">
+            <strong className="me-auto">Alert</strong>
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div className="toast-body">
+            Expenses for {this.state.category} has gone over the Monthly Budget
+          </div>
         </div>
       </div>
     );

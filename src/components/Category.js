@@ -37,7 +37,7 @@ export class Category extends Component {
         >
           + Add Category
         </button>
-        <table class="table w-100 bg-light">
+        <table className="table w-100 bg-light">
           <thead>
             <tr>
               <th scope="col">NO.</th>
@@ -46,7 +46,7 @@ export class Category extends Component {
               <th scope="col" style={{ width: "10%" }}></th>
             </tr>
           </thead>
-          <tbody class="table-group-divider">
+          <tbody className="table-group-divider">
             {this.state.data.map((data, i) => (
               <tr>
                 <th scope="row">{i + 1}</th>
@@ -57,10 +57,10 @@ export class Category extends Component {
                   </span>
                 </td>
                 <td>
-                  <div class="dropdown">
+                  <div className="dropdown">
                     <button
                       type="button"
-                      class="btn"
+                      className="btn"
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                       data-bs-auto-close="outside"

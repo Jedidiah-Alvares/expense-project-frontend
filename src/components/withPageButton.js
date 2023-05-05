@@ -56,7 +56,7 @@ const withPageButton = (WrappedComponent) => {
           <div className="page">
             <button
               type="button"
-              class="btn btn-dark"
+              className="btn btn-dark"
               id="prev"
               onClick={this.handleButton}
             >
@@ -64,7 +64,7 @@ const withPageButton = (WrappedComponent) => {
             </button>
             <button
               type="button"
-              class="btn btn-dark"
+              className="btn btn-dark"
               id="next"
               onClick={this.handleButton}
             >

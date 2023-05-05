@@ -78,7 +78,11 @@ class Expense extends Component {
           </button>
           {this.state.load ? (
             <div>
-              <div class="spinner-border my-4" role="status" id="spinner"></div>
+              <div
+                className="spinner-border my-4"
+                role="status"
+                id="spinner"
+              ></div>
             </div>
           ) : this.state.data.length ? (
             <>

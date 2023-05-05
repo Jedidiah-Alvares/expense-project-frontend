@@ -12,7 +12,7 @@ import React from "react";
 import { PageNotFound } from "./components/PageNotFound";
 
 function App() {
-  console.log(typeof ProtectRoutes);
+  document.title = "Expense Management System";
   return (
     <>
       <NavBar />

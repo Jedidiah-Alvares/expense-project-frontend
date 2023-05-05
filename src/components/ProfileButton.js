@@ -13,7 +13,7 @@ export const ProfileButton = () => {
   if (user) {
     return (
       <div className="navbar-nav float-end">
-        <div class="dropdown ">
+        <div className="dropdown ">
           <div
             className="dropdown-toggle profile"
             data-bs-toggle="dropdown"
@@ -21,17 +21,17 @@ export const ProfileButton = () => {
           >
             {user}
           </div>
-          <ul class="dropdown-menu">
+          <ul className="dropdown-menu">
             <li>
-              <button class="dropdown-item" type="button">
+              <button className="dropdown-item" type="button">
                 Profile
               </button>
             </li>
             <li>
-              <hr class="dropdown-divider" />
+              <hr className="dropdown-divider" />
             </li>
             <li>
-              <button class="dropdown-item" type="button">
+              <button className="dropdown-item" type="button">
                 <Link
                   className="nav-link"
                   onClick={() => {

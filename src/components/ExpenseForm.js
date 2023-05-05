@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 // contains the Expense addition form
 export const ExpenseForm = (props) => {
-  const { category, date, amount } = props.refs;
+  const form = props.refs;
   const categories = props.categories;
 
   const dateToday = new Date();
@@ -14,11 +14,22 @@ export const ExpenseForm = (props) => {
   let year = dateToday.getFullYear();
 
   useEffect(() => {
-    document.getElementById("alert").style.display = "none";
-  });
+    document.getElementById("success").style.display = "none";
+    document.getElementById("danger").style.display = "none";
+  }, []);
+
+  const handleForm = () => {
+    document.getElementById("success").style.display = "none";
+    document.getElementById("danger").style.display = "none";
+  };
 
   return (
-    <form className="text-start mx-auto" onSubmit={props.handleSubmit}>
+    <form
+      className="text-start mx-auto"
+      onSubmit={props.handleSubmit}
+      ref={form}
+      onFocus={handleForm}
+    >
       <div className="mb-3">
         <label className="form-label">Category</label>
         <input
@@ -27,7 +38,6 @@ export const ExpenseForm = (props) => {
           id="catselected"
           placeholder="Enter The Category"
           autoComplete="off"
-          ref={category}
         />
         <datalist id="category">
           {categories.map((category) => (
@@ -43,7 +53,6 @@ export const ExpenseForm = (props) => {
           id="date"
           placeholder="Enter the Date"
           max={`${year}-${month}-${day}`}
-          ref={date}
           required
         />
       </div>
@@ -54,7 +63,6 @@ export const ExpenseForm = (props) => {
           className="form-control"
           id="amnt"
           placeholder="Enter the Amount Expended"
-          ref={amount}
           required
         />
       </div>
@@ -62,8 +70,11 @@ export const ExpenseForm = (props) => {
       <button type="submit" className="btn btn-primary">
         Submit
       </button>
-      <div class="alert alert-success mt-2" role="alert" id="alert">
+      <div className="alert alert-success mt-2" role="alert" id="success">
         The Expense has been Added
+      </div>
+      <div className="alert alert-danger mt-2" role="alert" id="danger">
+        The Category doesn't Exist
       </div>
     </form>
   );

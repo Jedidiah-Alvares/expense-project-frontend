@@ -21,21 +21,21 @@ export const EditCategory = (props) => {
       });
   };
   return (
-    <div class="dropdown-menu">
-      <form class="px-4 py-3" onSubmit={handleEdit} id={props.category}>
-        <div class="mb-3">
-          <label class="form-label">Edit {props.category} Budget</label>
+    <div className="dropdown-menu">
+      <form className="px-4 py-3" onSubmit={handleEdit} id={props.category}>
+        <div className="mb-3">
+          <label className="form-label">Edit {props.category} Budget</label>
           <input
             ref={amount}
             type="number"
             min={0}
-            class="form-control"
+            className="form-control"
             placeholder="Enter the Budget"
             required
           />
         </div>
 
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" className="btn btn-primary">
           submit
         </button>
       </form>

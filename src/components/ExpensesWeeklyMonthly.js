@@ -86,7 +86,7 @@ class ExpensesWeeklyMonthly extends Component {
           <div>
             <span className="text-body">Filter By: </span>
             <select
-              class="form-select mb-3 w-auto d-inline"
+              className="form-select mb-3 w-auto d-inline"
               onChange={this.props.reset}
               ref={this.categoryRef}
             >
@@ -99,7 +99,7 @@ class ExpensesWeeklyMonthly extends Component {
           <div>
             <span className="text-body">Filter Expense: </span>
             <select
-              class="form-select mb-3 w-auto d-inline"
+              className="form-select mb-3 w-auto d-inline"
               onChange={this.props.reset}
               ref={this.filterRef}
             >
@@ -108,7 +108,7 @@ class ExpensesWeeklyMonthly extends Component {
             </select>
           </div>
         </div>
-        <table class="table  bg-light">
+        <table className="table  bg-light">
           <thead>
             <tr>
               <th scope="col">NO.</th>
@@ -116,7 +116,7 @@ class ExpensesWeeklyMonthly extends Component {
               <th scope="col">Expense</th>
             </tr>
           </thead>
-          <tbody class="table-group-divider">
+          <tbody className="table-group-divider">
             {this.state.data.map((data) => (
               <tr>
                 <th scope="row">{data.id + 1}</th>
