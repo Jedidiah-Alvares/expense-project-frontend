@@ -28,4 +28,5 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Loading);
+export default connect(mapStateToProps)(Loading);
+export const changeLoadingDispatch = connect(null, mapDispatchToProps);

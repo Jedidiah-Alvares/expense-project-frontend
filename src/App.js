@@ -3,14 +3,13 @@ import "./App.css";
 import { Home } from "./components/Home";
 import { NavBar } from "./components/NavBar";
 import { SignUp } from "./components/SignUp";
-import { SignIn } from "./components/SignIn";
+import SignIn from "./components/SignIn";
 import Expense from "./components/Expense";
 import ExpensesWeeklyMonthly from "./components/ExpensesWeeklyMonthly";
 import Category from "./components/Category";
 import ProtectRoutes from "./components/ProtectRoutes";
 import React, { useEffect } from "react";
 import { PageNotFound } from "./components/PageNotFound";
-import { LoadingContextProvider } from "./components/withLoading";
 
 function App() {
   return (

@@ -5,8 +5,9 @@ import { auth } from "../feature/userAuth/userAuthSlice";
 import axios from "axios";
 import { Form } from "./Form";
 import { addCategory } from "../feature/category/categorySlice";
+import Loading, { changeLoadingDispatch } from "./Loading";
 // contains the signin feature
-export const SignIn = () => {
+const SignIn = ({ changeLoading }) => {
   // name and password are refs to handle their respective input tag in the form
   const name = useRef("");
   const password = useRef("");
@@ -60,7 +61,7 @@ export const SignIn = () => {
   // handle submit of the form
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    changeLoading();
     document.getElementById("alert").style.display = "none";
     payload = {
       name: name.current.value,
@@ -69,7 +70,7 @@ export const SignIn = () => {
 
     // send data to the server
     axios.post("http://localhost:4000/user/verify", payload).then((res) => {
-      console.log(res.data);
+      changeLoading();
       if (res.data) {
         addData();
         navigate(redirectPath);
@@ -80,6 +81,10 @@ export const SignIn = () => {
   };
 
   return (
-    <Form refs={{ name, password }} handleSubmit={handleSubmit} text={text} />
+    <Loading>
+      <Form refs={{ name, password }} handleSubmit={handleSubmit} text={text} />
+    </Loading>
   );
 };
+
+export default changeLoadingDispatch(SignIn);

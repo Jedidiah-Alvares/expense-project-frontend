@@ -3,9 +3,7 @@ import withPageButton from "./withPageButton";
 import axios from "axios";
 import { Cards } from "./Cards";
 import { AddExpense } from "./AddExpense";
-import Loading from "./Loading";
-import { compose } from "@reduxjs/toolkit";
-import withLoading from "./withLoading";
+import Loading, { changeLoadingDispatch } from "./Loading";
 
 class Expense extends Component {
   constructor(props) {
@@ -79,38 +77,40 @@ class Expense extends Component {
   render() {
     console.log("Render");
     return (
-      <div className="card-container ">
-        <button
-          className="btn btn-secondary mt-2"
-          data-bs-toggle="modal"
-          data-bs-target="#addexpense"
-        >
-          + Add Expense
-        </button>
-        {this.state.load ? (
-          <div>
-            <div class="spinner-border my-4" role="status" id="spinner"></div>
-          </div>
-        ) : this.state.data.length ? (
-          <>
-            {this.state.data.map((data) => (
-              <Cards
-                key={data.id}
-                category={data.category}
-                date={data.date}
-                expense={data.expense}
-              />
-            ))}
-          </>
-        ) : (
-          <div>No Expenses Found</div>
-        )}
-        {this.props.children}
+      <Loading>
+        <div className="card-container ">
+          <button
+            className="btn btn-secondary mt-2"
+            data-bs-toggle="modal"
+            data-bs-target="#addexpense"
+          >
+            + Add Expense
+          </button>
+          {this.state.load ? (
+            <div>
+              <div class="spinner-border my-4" role="status" id="spinner"></div>
+            </div>
+          ) : this.state.data.length ? (
+            <>
+              {this.state.data.map((data) => (
+                <Cards
+                  key={data.id}
+                  category={data.category}
+                  date={data.date}
+                  expense={data.expense}
+                />
+              ))}
+            </>
+          ) : (
+            <div>No Expenses Found</div>
+          )}
+          {this.props.children}
 
-        <AddExpense getData={this.getData} />
-      </div>
+          <AddExpense getData={this.getData} />
+        </div>
+      </Loading>
     );
   }
 }
-console.log(withLoading);
-export default withPageButton(withLoading(Expense));
+
+export default withPageButton(changeLoadingDispatch(Expense));
