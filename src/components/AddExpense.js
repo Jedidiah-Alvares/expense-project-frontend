@@ -25,8 +25,8 @@ export const AddExpense = (props) => {
     let payload = {
       name: name,
       category: form.current[0].value,
-      date: form.current[1].value,
-      expense: form.current[2].value,
+      date: new Date(form.current[1].value),
+      expense: Number(form.current[2].value),
     };
 
     // Sends the payload to the server

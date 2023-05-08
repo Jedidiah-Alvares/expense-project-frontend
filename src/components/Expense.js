@@ -13,8 +13,6 @@ class Expense extends Component {
       data: [],
       load: true,
     };
-
-    console.log(props);
   }
   // display 5 expenses in card format
   // so previous and next buttons have been added

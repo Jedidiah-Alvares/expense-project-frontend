@@ -11,7 +11,7 @@ export const EditCategory = (props) => {
 
     const payload = {
       category: e.target.id,
-      amount: amount.current.value,
+      amount: Number(amount.current.value),
     };
 
     axios

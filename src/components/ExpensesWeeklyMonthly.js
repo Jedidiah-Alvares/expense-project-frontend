@@ -28,6 +28,7 @@ class ExpensesWeeklyMonthly extends Component {
 
     this.categoryRef = createRef();
     this.filterRef = createRef("Week");
+    console.log(props);
   }
 
   componentDidMount() {
@@ -90,10 +91,9 @@ class ExpensesWeeklyMonthly extends Component {
               onChange={this.props.reset}
               ref={this.categoryRef}
             >
-              <option selected>Food</option>
-              <option>Fuel</option>
-              <option>Rent</option>
-              <option>Stuffs</option>
+              {this.props.categories.map((category) => (
+                <option>{category}</option>
+              ))}
             </select>
           </div>
           <div>
@@ -108,8 +108,8 @@ class ExpensesWeeklyMonthly extends Component {
             </select>
           </div>
         </div>
-        <table className="table  bg-light">
-          <thead>
+        <table className="table table-secondary table-sm table-hover">
+          <thead className="table-light">
             <tr>
               <th scope="col">NO.</th>
               <th scope="col">Dates</th>
@@ -134,6 +134,7 @@ class ExpensesWeeklyMonthly extends Component {
 
 const mapStateToProps = (state) => ({
   name: state.user.name,
+  categories: state.category.categories,
 });
 
 export default connect(mapStateToProps)(withPageButton(ExpensesWeeklyMonthly));

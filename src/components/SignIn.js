@@ -15,7 +15,7 @@ export const SignIn = () => {
   // Since sign in and sign up use the same form, few payloads has to be sent to the form
   const text = {
     heading: "Sign In",
-    error: "",
+    error: "The Username or Password is incorrect",
     path: "/signUp",
     message: "Do not have an Account? Sign up",
   };
@@ -31,17 +31,8 @@ export const SignIn = () => {
   // To handle some classes in the form
   // may remove from js and handle it in css/bootstrap
   useEffect(() => {
-    document.getElementById("main").classList.remove("text-center");
     document.getElementsByTagName("input")[1].removeAttribute("pattern");
     document.getElementsByTagName("input")[1].removeAttribute("title");
-
-    document.getElementById("alert").innerHTML =
-      "The Username or Password is incorrect";
-    document.getElementById("alert").style.display = "none";
-    name.current.focus();
-    return () => {
-      document.getElementById("main").classList.add("text-center");
-    };
   }, []);
 
   // adds data to the rdeux store
@@ -59,7 +50,6 @@ export const SignIn = () => {
   // handle submit of the form
   const handleSubmit = (e) => {
     e.preventDefault();
-    document.getElementById("alert").style.display = "none";
     payload = {
       name: name.current.value,
       password: password.current.value,
@@ -67,7 +57,6 @@ export const SignIn = () => {
 
     // send data to the server
     axios.post("http://localhost:4000/user/verify", payload).then((res) => {
-      console.log(res.data);
       if (res.data) {
         addData();
         navigate(redirectPath);

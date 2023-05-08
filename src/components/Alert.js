@@ -22,23 +22,25 @@ export class Alert extends Component {
     let i = 0;
     let expended = payload[0]?.totalAmount ?? 0;
 
-    axios.get("http://localhost:4000/category/get/jed").then((res) => {
-      let data = res.data;
-      let amount = 0;
-      for (; i < data.length; i++) {
-        if (data[i]._id === category) {
-          amount = data[i].budget;
-          break;
+    axios
+      .get("http://localhost:4000/category/getcategorybudget/jed")
+      .then((res) => {
+        let data = res.data;
+        let amount = 0;
+        for (; i < data.length; i++) {
+          if (data[i]._id === category) {
+            amount = data[i].budget;
+            break;
+          }
         }
-      }
 
-      if (amount !== -1 && amount < expended) {
-        //alert(`Expenses for ${data[i]._id} has gone over the Monthly Budget`);
-        this.setState({ category: category });
-        console.log(this.state.toast);
-        this.state.toast.show();
-      }
-    });
+        if (amount !== -1 && amount < expended) {
+          //alert(`Expenses for ${data[i]._id} has gone over the Monthly Budget`);
+          this.setState({ category: category });
+          console.log(this.state.toast);
+          this.state.toast.show();
+        }
+      });
   };
 
   getMonthExpense = (payload) => {

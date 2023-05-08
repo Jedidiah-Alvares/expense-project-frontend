@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Form } from "./Form";
@@ -12,26 +12,12 @@ export const SignUp = () => {
   // Since sign in and sign up use the same form, few payloads has to be sent to the form
   const text = {
     heading: "Sign Up",
-    error: "",
+    error: "The Username already exist",
     path: "/signin",
     message: "Already have an Account? Sign In",
   };
 
   const navigate = useNavigate();
-
-  // To handle some classes in the form
-  // may remove from js and handle it in css/bootstrap
-  useEffect(() => {
-    document.getElementById("main").classList.remove("text-center");
-
-    document.getElementById("alert").innerHTML = "The Username already exist";
-    document.getElementById("alert").style.display = "none";
-
-    name.current.focus();
-    return () => {
-      document.getElementById("main").classList.add("text-center");
-    };
-  }, []);
 
   // adds data to the rdeux store and also sends it to the server
   const addData = () => {
@@ -65,8 +51,6 @@ export const SignUp = () => {
   // handle submit of the form
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    document.getElementById("alert").style.display = "none";
 
     // checks if the user already exists
     axios

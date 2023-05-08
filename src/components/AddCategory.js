@@ -34,7 +34,7 @@ export const AddCategory = (props) => {
               {
                 month: date.getMonth() + 1,
                 year: date.getFullYear(),
-                amount: budget.current.value,
+                amount: Number(budget.current.value),
               },
             ],
       };

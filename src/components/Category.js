@@ -19,7 +19,9 @@ export class Category extends Component {
 
   getmonthdata = () => {
     axios
-      .get(`http://localhost:4000/category/get/${this.props.name}`)
+      .get(
+        `http://localhost:4000/category/getcategorybudget/${this.props.name}`
+      )
       .then((res) => {
         this.setState({
           data: res.data,
@@ -37,8 +39,8 @@ export class Category extends Component {
         >
           + Add Category
         </button>
-        <table className="table w-100 bg-light">
-          <thead>
+        <table className="table w-100 table-secondary table-sm table-hover">
+          <thead className="table-light">
             <tr>
               <th scope="col">NO.</th>
               <th scope="col">Category</th>
@@ -60,7 +62,7 @@ export class Category extends Component {
                   <div className="dropdown">
                     <button
                       type="button"
-                      className="btn"
+                      className="btn text-dark"
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                       data-bs-auto-close="outside"
