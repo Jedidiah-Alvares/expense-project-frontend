@@ -4,6 +4,7 @@ import axios from "axios";
 import { Cards } from "./Cards";
 import { AddExpense } from "./AddExpense";
 import { connect } from "react-redux";
+import { changeLoadingDispatch } from "./Loading";
 
 class Expense extends Component {
   constructor(props) {
@@ -109,4 +110,6 @@ const mapStateToProps = (state) => ({
   name: state.user.name,
 });
 
-export default connect(mapStateToProps)(withPageButton(Expense));
+export default connect(mapStateToProps)(
+  changeLoadingDispatch(withPageButton(Expense))
+);

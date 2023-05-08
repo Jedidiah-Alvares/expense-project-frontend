@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { ProfileButton } from "./ProfileButton";
 import { UserNav } from "./UserNav";
 
