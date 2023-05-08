@@ -5,7 +5,6 @@ import { auth } from "../feature/userAuth/userAuthSlice";
 import axios from "axios";
 import { Form } from "./Form";
 import { addCategory } from "../feature/category/categorySlice";
-
 // contains the signin feature
 export const SignIn = () => {
   // name and password are refs to handle their respective input tag in the form
@@ -61,6 +60,7 @@ export const SignIn = () => {
   // handle submit of the form
   const handleSubmit = (e) => {
     e.preventDefault();
+
     document.getElementById("alert").style.display = "none";
     payload = {
       name: name.current.value,

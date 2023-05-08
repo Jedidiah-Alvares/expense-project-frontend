@@ -3,8 +3,9 @@ import withPageButton from "./withPageButton";
 import axios from "axios";
 import { Cards } from "./Cards";
 import { AddExpense } from "./AddExpense";
-import { connect } from "react-redux";
-import { changeLoading } from "../feature/loading/loadingSlice";
+import Loading from "./Loading";
+import { compose } from "@reduxjs/toolkit";
+import withLoading from "./withLoading";
 
 class Expense extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class Expense extends Component {
       load: true,
     };
 
-    console.log("props", props);
+    console.log(props);
   }
   // display 5 expenses in card format
   // so previous and next buttons have been added
@@ -24,8 +25,8 @@ class Expense extends Component {
   // gets data after mounting
 
   componentDidMount() {
+    console.log("componentDidMount");
     this.getData();
-
     //Dispatch(changeLoading());
   }
 
@@ -34,8 +35,9 @@ class Expense extends Component {
 
   getData = () => {
     let num = this.props.pageNo;
-
     this.props.changeLoading();
+    console.log("Getting data");
+
     this.setState({
       load: true,
       data: [],
@@ -65,55 +67,50 @@ class Expense extends Component {
         }));
       }
 
-      this.props.changeLoading();
       this.setState({
         load: false,
       });
+
+      this.props.changeLoading();
+      console.log("Got Data");
     });
   };
 
   render() {
+    console.log("Render");
     return (
-      <>
-        <div className="card-container ">
-          <button
-            className="btn btn-secondary mt-2"
-            data-bs-toggle="modal"
-            data-bs-target="#addexpense"
-          >
-            + Add Expense
-          </button>
-          {this.state.load ? (
-            <div>
-              <div class="spinner-border my-4" role="status" id="spinner"></div>
-            </div>
-          ) : this.state.data.length ? (
-            <>
-              {this.state.data.map((data) => (
-                <Cards
-                  key={data.id}
-                  category={data.category}
-                  date={data.date}
-                  expense={data.expense}
-                />
-              ))}
-            </>
-          ) : (
-            <div>No Expenses Found</div>
-          )}
-          {this.props.children}
+      <div className="card-container ">
+        <button
+          className="btn btn-secondary mt-2"
+          data-bs-toggle="modal"
+          data-bs-target="#addexpense"
+        >
+          + Add Expense
+        </button>
+        {this.state.load ? (
+          <div>
+            <div class="spinner-border my-4" role="status" id="spinner"></div>
+          </div>
+        ) : this.state.data.length ? (
+          <>
+            {this.state.data.map((data) => (
+              <Cards
+                key={data.id}
+                category={data.category}
+                date={data.date}
+                expense={data.expense}
+              />
+            ))}
+          </>
+        ) : (
+          <div>No Expenses Found</div>
+        )}
+        {this.props.children}
 
-          <AddExpense getData={this.getData} />
-        </div>
-      </>
+        <AddExpense getData={this.getData} />
+      </div>
     );
   }
 }
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    changeLoading: () => dispatch(changeLoading()),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(withPageButton(Expense));
+console.log(withLoading);
+export default withPageButton(withLoading(Expense));

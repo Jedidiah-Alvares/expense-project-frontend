@@ -8,12 +8,11 @@ import Expense from "./components/Expense";
 import ExpensesWeeklyMonthly from "./components/ExpensesWeeklyMonthly";
 import Category from "./components/Category";
 import ProtectRoutes from "./components/ProtectRoutes";
-import React from "react";
+import React, { useEffect } from "react";
 import { PageNotFound } from "./components/PageNotFound";
-import Loading from "./components/Loading";
+import { LoadingContextProvider } from "./components/withLoading";
 
 function App() {
-  console.log(typeof ProtectRoutes);
   return (
     <>
       <NavBar />

@@ -1,31 +1,42 @@
 import React, { Component } from "react";
+import { changeLoading } from "../feature/loading/loadingSlice";
+import { connect } from "react-redux";
+import ReactLoading from "react-loading";
 
-export const withLoading = (WrappedComponent) => {
+const withLoading = ({ WrapperComponent, isLoading, changeLoading }) => {
   class withLoading extends Component {
-    constructor(props) {
-      super(props);
-
-      this.state = {
-        loading: true,
-      };
-    }
-
-    changeLoading = () =>
-      this.setState({
-        loading: !this.state.loading,
-      });
-
     render() {
       return (
-        <WrappedComponent>
-          <div class="text-center">
-            <div class="spinner-border" role="status">
-              <span class="visually-hidden">Loading...</span>
+        <>
+          {isLoading ? (
+            <div>
+              <ReactLoading type="spin" height={100} width={100} />
+              <span class="visually-hidden">
+                <WrapperComponent
+                  changeLoading={changeLoading}
+                  {...this.props}
+                />
+              </span>
             </div>
-          </div>
-        </WrappedComponent>
+          ) : (
+            <WrapperComponent changeLoading={changeLoading} {...this.props} />
+          )}
+        </>
       );
     }
   }
+
   return withLoading;
 };
+
+const mapStateToProps = (state) => ({
+  isLoading: state.loading.isLoading,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    changeLoading: () => dispatch(changeLoading()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withLoading);

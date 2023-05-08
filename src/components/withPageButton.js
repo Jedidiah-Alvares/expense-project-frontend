@@ -10,7 +10,6 @@ const withPageButton = (WrappedComponent) => {
         isLoading: false,
       };
 
-      console.log(WrappedComponent);
       this.child = createRef();
     }
 
