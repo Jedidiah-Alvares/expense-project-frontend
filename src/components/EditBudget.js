@@ -2,16 +2,21 @@ import axios from "axios";
 import React, { useRef } from "react";
 import { useSelector } from "react-redux";
 
-export const EditCategory = (props) => {
-  const amount = useRef(-1);
+export const EditBudget = (props) => {
+  // amount is a ref to its input tag
+  const amount = useRef();
   const name = useSelector((state) => state.user.name);
 
+  // handles the budget
   const handleEdit = (e) => {
     e.preventDefault();
 
+    const budget = Number(amount.current.value);
+
+    // set budget to -1 if the budget is not set
     const payload = {
       category: e.target.id,
-      amount: Number(amount.current.value),
+      amount: budget ? budget : -1,
     };
 
     axios
@@ -31,9 +36,11 @@ export const EditCategory = (props) => {
             min={0}
             className="form-control"
             placeholder="Enter the Budget"
-            required
           />
         </div>
+        <p className="text-info" style={{ fontSize: "75%" }}>
+          Submit without any value to not set the Budget
+        </p>
 
         <button type="submit" className="btn btn-primary">
           submit

@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// username initial state
+// categories initial state
 const initialState = {
   categories: [],
 };
 
-// the auth and signOut reducers
-// the auth will take care of sign up and sign in
+// the addCategory and resetCategory reducers
 const categorySlice = createSlice({
   name: "category",
   initialState,

@@ -1,21 +1,25 @@
 import React, { useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { addCategory, resetCategory } from "../feature/category/categorySlice";
 
 // contains the modal and form to add categories
 export const AddCategory = (props) => {
-  // category, month, budget are refs to handle their respective input tag in the form
+  // category and budget are refs to handle their respective input tag in the form
   const category = useRef();
   const budget = useRef();
 
   // gets name and categories from the store
   const name = useSelector((state) => state.user.name);
   const categories = useSelector((state) => state.category.categories);
+  const dispatch = useDispatch();
 
   // handles the form
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // convert to lower case and check if the entered category exists
+    // cont is true if it doesn't exist
     let cont = true;
     categories.every((cat) => {
       if (cat.toLowerCase() === category.current.value.toLowerCase()) {
@@ -41,15 +45,23 @@ export const AddCategory = (props) => {
 
       // Sends the payload to the server
       // Retrieves the new expense in background by calling getData of Expense component
-
       axios
         .put(`http://localhost:4000/category/edit/${name}`, payload)
         .then(() => {
-          props.getmonthdata();
+          props.getmonthdata(true);
+          axios
+            .get(`http://localhost:4000/category/getAll/${name}`)
+            .then((res) => {
+              dispatch(resetCategory());
+              res.data[0].category.forEach((cat) => {
+                dispatch(addCategory(cat));
+              });
+            });
         });
     }
   };
 
+  // fucntion to handle the checkbox
   const handleCheckbox = (e) => {
     if (e.target.checked) {
       budget.current.disabled = false;

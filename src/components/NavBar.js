@@ -16,10 +16,10 @@ export const NavBar = () => {
   return (
     <>
       <nav
-        className="navbar navbar-expand-lg bg-body-tertiary"
+        className="navbar navbar-expand-lg bg-body-tertiary shadow"
         style={{ minHeight: "10vh" }}
       >
-        <div className="container">
+        <div className="container ">
           <button
             className="navbar-toggler"
             type="button"
@@ -31,16 +31,19 @@ export const NavBar = () => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div className="navbar-nav col-11">
+          <div
+            className="collapse navbar-collapse col-11"
+            id="navbarNavAltMarkup"
+          >
+            <div className="navbar-nav">
               <NavLink className="nav-link" aria-current="page" to="/">
                 Home
               </NavLink>
               <UserNav />
             </div>
-
-            <ProfileButton />
           </div>
+
+          <ProfileButton />
         </div>
       </nav>
     </>

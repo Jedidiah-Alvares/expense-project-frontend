@@ -6,27 +6,35 @@ export class Alert extends Component {
   constructor(props) {
     super(props);
 
+    // "toast" contains the toast object
+    // "category" is the category displayed in the toast
     this.state = {
       toast: null,
       category: "",
     };
   }
 
+  // set the toast object
   componentDidMount() {
     this.setState({
       toast: new bootstrap.Toast(document.getElementById("toast")),
     });
   }
 
+  // Gets the monthly budget of all category and checks if the entered amount is over the budget
   checkBudget = (payload, category) => {
     let i = 0;
     let expended = payload[0]?.totalAmount ?? 0;
 
     axios
-      .get("http://localhost:4000/category/getcategorybudget/jed")
+      .get(
+        `http://localhost:4000/category/getcategorybudget/${this.props.name}`
+      )
       .then((res) => {
         let data = res.data;
         let amount = 0;
+
+        // gets the budget of the entered category
         for (; i < data.length; i++) {
           if (data[i]._id === category) {
             amount = data[i].budget;
@@ -34,15 +42,14 @@ export class Alert extends Component {
           }
         }
 
-        if (amount !== -1 && amount < expended) {
-          //alert(`Expenses for ${data[i]._id} has gone over the Monthly Budget`);
+        if (amount < expended) {
           this.setState({ category: category });
-          console.log(this.state.toast);
           this.state.toast.show();
         }
       });
   };
 
+  // gets the monthly expense for that category
   getMonthExpense = (payload) => {
     let date = new Date(payload.date);
     let month = date.getMonth() + 1;

@@ -12,9 +12,10 @@ export const UserNav = () => {
         <NavLink className="nav-link" to="/expense">
           Expense
         </NavLink>
-        <NavLink className="nav-link" to="/expense-weekly-monthly">
-          Weekly/Monthly Expenses
+        <NavLink className="nav-link" to="/filtered-expense">
+          Filtered Expense
         </NavLink>
+
         <NavLink className="nav-link" to="/category">
           Category
         </NavLink>

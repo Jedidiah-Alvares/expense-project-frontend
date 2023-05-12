@@ -1,13 +1,17 @@
-.nav {
-  background-color: aliceblue !important;
+nav {
+  background-image: linear-gradient(#c4e0e5, #4ca1af);
 }
 
 a {
-  color: #6610f2 !important;
+  color: #152b2f !important;
 }
 
 a.active {
   font-weight: bold;
+}
+
+input:focus {
+  color: black;
 }
 
 .vertical-center {
@@ -15,7 +19,6 @@ a.active {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  background-color: #9ec5fe;
 }
 
 input {
@@ -44,10 +47,6 @@ form {
   background-color: aliceblue;
 }
 
-.card {
-  margin: 1rem;
-}
-
 .page {
   display: flex;
   justify-content: space-between;
@@ -55,4 +54,19 @@ form {
 
 .edit {
   font-weight: bold;
+}
+
+#loading {
+  z-index: 99;
+  position: absolute;
+  top: 10vh;
+}
+
+#main {
+  background-image: linear-gradient(#4ca1af, #c4e0e5);
+}
+
+#myTab a.active {
+  background-color: transparent;
+  border-bottom: 1px solid #5aa8b5;
 }

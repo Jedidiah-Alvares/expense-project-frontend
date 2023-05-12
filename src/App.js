@@ -1,21 +1,22 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { Home } from "./components/Home";
 import { NavBar } from "./components/NavBar";
 import { SignUp } from "./components/SignUp";
-import { SignIn } from "./components/SignIn";
+import SignIn from "./components/SignIn";
 import Expense from "./components/Expense";
 import ExpensesWeeklyMonthly from "./components/ExpensesWeeklyMonthly";
 import Category from "./components/Category";
 import ProtectRoutes from "./components/ProtectRoutes";
 import React from "react";
 import { PageNotFound } from "./components/PageNotFound";
+import CustomFilter from "./components/CustomFilter";
+import FilterExpenses from "./components/FilterExpenses";
 
 function App() {
-  document.title = "Expense Management System";
   return (
     <>
       <NavBar />
-      <div className="vertical-center text-center" id="main">
+      <div className="vertical-center text-center " id="main">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<SignUp />} />
@@ -25,9 +26,20 @@ function App() {
             element={<ProtectRoutes Component={Expense} />}
           />
           <Route
-            path="/expense-weekly-monthly"
-            element={<ProtectRoutes Component={ExpensesWeeklyMonthly} />}
-          />
+            path="/filtered-expense"
+            element={<ProtectRoutes Component={FilterExpenses} />}
+          >
+            <Route index element={<Navigate to="weekly-monthly" />} />
+            <Route
+              path="weekly-monthly"
+              element={<ProtectRoutes Component={ExpensesWeeklyMonthly} />}
+            />
+            <Route
+              path="custom-filter"
+              element={<ProtectRoutes Component={CustomFilter} />}
+            />
+          </Route>
+
           <Route
             path="/category"
             element={<ProtectRoutes Component={Category} />}

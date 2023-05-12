@@ -14,6 +14,7 @@ export const AddExpense = (props) => {
   const name = useSelector((state) => state.user.name);
   const categories = useSelector((state) => state.category.categories);
 
+  // checks if the entered category exists
   const checkCategory = (category) => {
     return categories.find((cat) => cat === category);
   };
@@ -34,10 +35,11 @@ export const AddExpense = (props) => {
     if (checkCategory(payload.category)) {
       document.getElementById("success").style.display = "block";
       axios.post("http://localhost:4000/expense/add", payload).then(() => {
-        props.getData();
+        props.getData(true);
         alerts.current.getMonthExpense(payload);
       });
     } else {
+      // if category doesn't exist
       document.getElementById("danger").style.display = "block";
     }
   };
@@ -46,7 +48,7 @@ export const AddExpense = (props) => {
     <div
       className="modal fade"
       id="addexpense"
-      tabindex="-1"
+      tabIndex="-1"
       aria-hidden="true"
     >
       <div className="modal-dialog">
@@ -71,7 +73,7 @@ export const AddExpense = (props) => {
         </div>
       </div>
 
-      <Alert ref={alerts} />
+      <Alert ref={alerts} name={name} />
     </div>
   );
 };

@@ -5,22 +5,24 @@ const withPageButton = (WrappedComponent) => {
     constructor(props) {
       super(props);
 
+      // prev and next are the button visiblity
       this.state = {
         pageNo: 0,
+        prev: "hidden",
+        next: "hidden",
       };
 
+      // this ref is attached to the wrapper component
       this.child = createRef();
     }
 
     // changes the button visiblity of previous and next button
     setButtonVisiblity = (prev, next) => {
-      if (prev === 0)
-        document.getElementById("prev").style.visibility = "hidden";
-      else document.getElementById("prev").style.visibility = "visible";
+      if (prev === 0) this.setState({ prev: "hidden" });
+      else this.setState({ prev: "visible" });
 
-      if (next <= 0)
-        document.getElementById("next").style.visibility = "hidden";
-      else document.getElementById("next").style.visibility = "visible";
+      if (next <= 0) this.setState({ next: "hidden" });
+      else this.setState({ next: "visible" });
     };
 
     resetPageNo = () => {
@@ -59,6 +61,7 @@ const withPageButton = (WrappedComponent) => {
               className="btn btn-dark"
               id="prev"
               onClick={this.handleButton}
+              style={{ visibility: this.state.prev }}
             >
               Previous
             </button>
@@ -67,6 +70,7 @@ const withPageButton = (WrappedComponent) => {
               className="btn btn-dark"
               id="next"
               onClick={this.handleButton}
+              style={{ visibility: this.state.next }}
             >
               Next
             </button>

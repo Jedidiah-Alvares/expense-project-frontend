@@ -11,18 +11,33 @@ export const ProfileButton = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="navbar-nav float-end" id="signin">
+    <div className="navbar-nav" id="signin">
       {user ? (
-        <Link
-          className="nav-link"
-          onClick={() => {
-            dispatch(signOut());
-            dispatch(resetCategory());
-          }}
-          to={"/"}
-        >
-          Sign out
-        </Link>
+        <div className="dropdown ">
+          <a
+            className="btn border border-secondary-subtle dropdown-toggle text-truncate d-inline-block bg-secondary text-white"
+            href="/"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            style={{ maxWidth: "20vw" }}
+          >
+            {user}
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-end">
+            <Link
+              className="nav-link"
+              onClick={() => {
+                dispatch(signOut());
+                dispatch(resetCategory());
+              }}
+              to={"/"}
+            >
+              Sign out
+            </Link>
+          </ul>
+        </div>
       ) : (
         <NavLink className="nav-link" to="/signin">
           Sign In

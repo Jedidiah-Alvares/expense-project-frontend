@@ -3,19 +3,19 @@ import { connect } from "react-redux";
 import ReactLoading from "react-loading";
 import { changeLoading } from "../feature/loading/loadingSlice";
 
+// The loading screen
 const Loading = (props) => {
-  return (
-    <>
-      {props.isLoading ? (
-        <div>
-          <ReactLoading type="spin" height={100} width={100} />
-          <span class="visually-hidden">{props.children}</span>
-        </div>
-      ) : (
-        props.children
-      )}
-    </>
-  );
+  let render;
+  if (props.isLoading) {
+    render = (
+      <div>
+        <ReactLoading type="spin" height={100} width={100} />
+        <span class="visually-hidden">{props.children}</span>
+      </div>
+    );
+  } else render = props.children;
+
+  return render;
 };
 
 const mapStateToProps = (state) => ({
@@ -24,7 +24,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    changeLoading: () => dispatch(changeLoading()),
+    changeLoading: (isLoading) => dispatch(changeLoading(isLoading)),
   };
 };
 
